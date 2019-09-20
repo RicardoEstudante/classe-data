@@ -28,7 +28,7 @@ public class Data {
     static String separador = "/";
 
     public Data(String sd) {
-        stringData(sd);
+        this.stringData(sd);
     }
     
     public Data(int dia, int mes, int ano){
@@ -41,20 +41,28 @@ public class Data {
 
     public boolean stringData(String sd){
         int pos[] = new int[2];
-        int sub1,sub2,sub3;
-        
+        String sub1,sub2,sub3;
+        int j = 0;
         for (int i = 0; i < sd.length(); i++) {
             if (separador.equals(sd.charAt(i))) {
-                int j = 0;
                 pos[j] = i;
                 j++;
             }
         }
         
-        sub1 = Integer.parseInt(sd.substring(0, pos[0]));
-        sub2 = Integer.parseInt(sd.substring(pos[0] + 1, pos[1]));
-        sub3 = Integer.parseInt(sd.substring(pos[1]+ 1));
+        sub1 = sd.substring(0, pos[0]);
+        sub2 = sd.substring(pos[0] + 1, pos[1]);
+        sub3 = sd.substring(pos[1]+ 1);
         
+        int aux = Integer.parseInt(sub2);
+        
+        if (aux > diasMes(aux, Integer.parseInt(sub3))) {
+            return false;
+        }
+        
+        this.componentes[this.termos[0]] = Integer.parseInt(sub1);
+        this.componentes[this.termos[1]] = Integer.parseInt(sub2);
+        this.componentes[this.termos[2]] = Integer.parseInt(sub3);
         
         return true;
     }
