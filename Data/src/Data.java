@@ -1,5 +1,4 @@
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 
 public class Data {
 
@@ -89,12 +88,13 @@ public class Data {
         if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
             return 30;
         }
-        else{ if (mes == 2 && bissexto(ano)) {
-            return 29;
+        else{ 
+            if (mes == 2 && bissexto(ano)) {
+                return 29;
             }
             else{
-            if (mes == 2) {
-                return 28;
+                if (mes == 2) {
+                    return 28;
                 }
             }
         }
@@ -142,51 +142,51 @@ public class Data {
         return obj;
     }
     
-    private boolean anoValido (int ano){
-        if (ano > 0 && ano < 5000){
-            return true;
+    public long sub(Data d){
+        int anomaior, anomenor;
+        int dias = 0; 
+        int mesmaior, mesmenor;
+        
+        if (d.componentes[0] > this.componentes[0]) 
+            dias = d.componentes[0] - this.componentes[0];
+        
+        else 
+            dias = this.componentes[0] - d.componentes[0];
+        
+        if (d.componentes[1] > this.componentes[1]) {
+            mesmaior = d.componentes[1];
+            mesmenor = this.componentes[1];
         }
-        return false;
-    }
-
-    public long dataSubtracao(int ano1, int ano2){
-        if (anoValido(ano1) && anoValido(ano2)) {
-            if ((bissexto(ano1) && bissexto(ano2)) || (!bissexto(ano1) && (!bissexto(ano2)))) {
-                if (ano2 > ano1) {
-                    int anos = ano2 - ano1;
-                    int bissextos = (anos / 4);
-                    int dias = (anos * 365) + bissextos;
-                    return dias;
-                }
-                if (ano1 > ano2) {
-                    int anos = ano1 - ano2;
-                    int bissextos = (anos / 4);
-                    int dias = (anos * 365) + bissextos;
-                    return dias;
+        else {
+            mesmaior = this.componentes[1];
+            mesmenor = d.componentes[1];
+        }
+        
+        if (d.componentes[2] > this.componentes[2]){
+            anomaior = d.componentes[2];
+            anomenor = this.componentes[2];
+        }
+        else{
+            anomaior = this.componentes[2];
+            anomenor = d.componentes[2];
+        }
+        
+        for (int i = anomenor; i < anomaior; i++) {
+            if (bissexto(i)) {
+                dias += 366;
+            }
+            else{
+                dias += 365;
+            }
+            if (i == anomaior - 1) {
+                while(mesmenor < mesmaior){
+                    dias += diasMes(mesmenor, i);
+                    mesmenor++;
                 }
             }
-            if (bissexto(ano1) || bissexto(ano2)) {
-                if (ano2 > ano1) {
-                    int anos = ano2 - ano1;
-                    int bissextos = (anos / 4) + 1;
-                    int dias = (anos * 365) + bissextos;
-                    return dias;
-                }
-                if (ano1 > ano2) {
-                    int anos = ano1 - ano2;
-                    int bissextos = (anos / 4) + 1;
-                    int dias = (anos * 365) + bissextos;
-                    return dias;
-                }
-            }
         }
-      return 0 ;
+        return dias;
     }
-
-    long dataSubtracao(int dias){
-
-        return 1000;
-   }
 
     static boolean mudaFormato(int f){
         if (formato < 0 || formato > 4) {

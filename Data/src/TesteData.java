@@ -3,7 +3,7 @@ public class TesteData {
         Data data = new Data("22/09/2019");
         Data data1 = new Data("01/06/2000");
         Data datac = new Data(data1);
-        Data datas = new Data("22/09/2019");
+        Data datas = new Data("01/01/1900");
         
         System.out.println(data.dataString());
         
@@ -21,7 +21,11 @@ public class TesteData {
         
         System.out.println("Data copia: " + datac.dataString());
         
+        /*
         datas = datas.sub(43728);
         System.out.println(datas.dataString());
+        */
+        
+        System.out.println(data.sub(datas));
     }
 }
