@@ -26,6 +26,13 @@ public class TesteData {
         System.out.println(datas.dataString());
         */
         
-        System.out.println(data.sub(datas));
+        /*
+        datas = datas.soma(43728);
+        System.out.println(datas.dataString());
+        */
+        
+        datas = datas.soma(43737);
+        
+        System.out.println(datas.dataString());
     }
 }

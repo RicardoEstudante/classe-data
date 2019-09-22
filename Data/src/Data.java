@@ -121,19 +121,43 @@ public class Data {
         }
         return dias - 1;
     }
+    
+    public void diasData(long d){
+        Data obj = new Data(01,01,1900);
+        
+        for (int i = (int)d; i > 0; i--) {
+            
+            if (obj.componentes[0] == diasMes(obj.componentes[1],obj.componentes[2])) {
+                obj.componentes[0] = 1;
+                if (obj.componentes[1] == 12) {
+                    obj.componentes[1] = 1;
+                    obj.componentes[2]++;
+                }
+                else
+                    obj.componentes[1]++;
+            }
+            else
+                obj.componentes[0]++;
+        }
+        System.out.println(obj.dataString());
+        
+    }
 
     public Data soma(int dias){
         Data obj = new Data(this.componentes[0], this.componentes[1], this.componentes[2]);
         for (int i = dias; i > 0; i--) {
-            obj.componentes[0]++;
             if (obj.componentes[0] == diasMes(obj.componentes[1],obj.componentes[2])) {
-                obj.componentes[1]++;
-                obj.componentes[0] = 0;
+                obj.componentes[0] = 1;
+                
+                if (obj.componentes[1] == 12) {
+                    obj.componentes[1] = 1;
+                    obj.componentes[2]++;
+                }
+                else
+                    obj.componentes[1]++;
             }
-            if (obj.componentes[1] == 12) {
-                obj.componentes[1] = 0;
-                obj.componentes[2]++;
-            }
+            else
+                obj.componentes[0]++;
         }
         return obj;
     }
@@ -153,6 +177,7 @@ public class Data {
         }
         return obj;
     }
+    
     public long sub(Data d){
         int anomaior, anomenor;
         int dias = 0; 
