@@ -1,5 +1,7 @@
+package date;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 
 public class Data {
 
@@ -8,8 +10,8 @@ public class Data {
         componentes[1] = mes;
         componentes[2] = ano;
     */
-    int componentes [] = new int [3];
-    
+   private int componentes [] = new int [3];
+
     /*
         0 Britânico: DD/MM/AAAA
 	1 Americano: MM/DD/AAAA
@@ -23,14 +25,14 @@ public class Data {
         termos[] = é para a ordem da data de acordo com a classificação;
         por padrão dessa classe é utilizado o padrão britânico.
     */
-    int termos[] = {0,1,2};
-    
-    static String separador = "/";
+    private int termos[] = {0,1,2};
+
+    private static String separador = "/";
 
     public Data(String sd) {
         this.stringData(sd);
     }
-    
+
     public Data(int dia, int mes, int ano){
         if (diasMes(mes, ano) >= dia) {
             this.componentes[this.termos[0]] = dia;
@@ -49,24 +51,24 @@ public class Data {
                 j++;
             }
         }
-        
+
         sub1 = sd.substring(0, pos[0]);
         sub2 = sd.substring(pos[0] + 1, pos[1]);
         sub3 = sd.substring(pos[1]+ 1);
-        
+
         int aux = Integer.parseInt(sub2);
-        
+
         if (aux > diasMes(aux, Integer.parseInt(sub3))) {
             return false;
         }
-        
+
         this.componentes[this.termos[0]] = Integer.parseInt(sub1);
         this.componentes[this.termos[1]] = Integer.parseInt(sub2);
         this.componentes[this.termos[2]] = Integer.parseInt(sub3);
-        
+
         return true;
     }
-    
+
     public String dataString(){
         String data;
         data = new DecimalFormat("00").format(this.componentes[this.termos[0]]) + this.separador;
@@ -74,34 +76,39 @@ public class Data {
         data += String.valueOf(this.componentes[this.termos[2]]);
         return data;
     }
-    
-    static boolean bissexto(int ano){
+
+   public static boolean bissexto(int ano){
         return ((ano%4) == 0 && (ano%100) != 0) || ano%400 == 0;
     }
-    
-    static int diasMes(int m, int a){
-        if (m == 4 || m == 6 || m == 9 || m == 11) {
+
+   public static int diasMes(int mes, int ano){
+        if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
             return 30;
         }
-        else{
-            if (m == 2) {
-                return 28;
+        else{ if (mes == 2 && bissexto(ano)) {
+            return 29;
             }
             else{
-                if (m == 2 && bissexto(a)) {
-                    return 29;
+            if (mes == 2) {
+                return 28;
                 }
             }
         }
         return 31;
     }
-    
-    static boolean mudaFormato(int f){
-        if (f < 0 || f > 4) {
+
+     long dataSubtracao(int dias){
+
+      return 1000;
+    }
+
+    static boolean mudaFormato(int formato){
+        if (formato < 0 || formato > 4) {
             return false;
         }
-        Data.formato = f;
+        Data.formato = formato;
         return true;
     }
-    
+
 }
+
