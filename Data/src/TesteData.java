@@ -1,6 +1,6 @@
 public class TesteData {
     public static void main(String[] args) {
-        Data data = new Data("20/10/2010");
+        Data data = new Data("22/09/2019");
         Data data1 = new Data("01/06/2000");
         Data datac = new Data(data1);
         

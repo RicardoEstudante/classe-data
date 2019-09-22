@@ -8,7 +8,7 @@ public class Data {
         componentes[1] = mes;
         componentes[2] = ano;
     */
-   private int componentes [] = new int [3];
+    int componentes [] = new int [3];
 
     /*
         0 Britânico: DD/MM/AAAA
@@ -101,6 +101,31 @@ public class Data {
         return 31;
     }
 
+    private long dataDias(){
+        int mes = this.componentes[1];
+        int dias = this.componentes[0];
+        
+        for (int i = 1900; i < this.componentes[2]; i++) {
+            if (bissexto(i)) {
+                dias += 366;
+            }
+            else{
+                dias += 365;
+            }
+            if (i == this.componentes[2] - 1) {
+                while(mes > 1){
+                    dias += diasMes(mes, i);
+                    mes--;
+                }
+            }
+        }
+        return dias;
+    } 
+    
+    private void diasData(long d){
+        
+    }
+    
     private boolean anoValido (int ano){
         if (ano > 0 && ano < 5000){
             return true;
