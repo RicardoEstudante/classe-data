@@ -1,3 +1,5 @@
+package date;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 
@@ -34,7 +36,7 @@ public class Data {
             this.componentes[this.termos[2]] = ano;
         }
     }
-    
+
     public Data(String sd) {
         this.stringData(sd);
     }
@@ -91,12 +93,12 @@ public class Data {
         }
         else{ if (mes == 2 && bissexto(ano)) {
             return 29;
-            }
-            else{
+        }
+        else{
             if (mes == 2) {
                 return 28;
-                }
             }
+        }
         }
         return 31;
     }
@@ -104,7 +106,7 @@ public class Data {
     private long dataDias(){
         int mes = this.componentes[1];
         int dias = this.componentes[0];
-        
+
         for (int i = 1900; i < this.componentes[2]; i++) {
             if (bissexto(i)) {
                 dias += 366;
@@ -119,13 +121,29 @@ public class Data {
                 }
             }
         }
-        return dias;
-    } 
-    
-    private void diasData(long d){
-        
+        return dias - 1;
     }
-    
+
+    private void diasData(long d){
+
+    }
+
+    public Data soma(int dias){
+        Data obj = new Data(this.componentes[0], this.componentes[1], this.componentes[2]);
+        for (int i = dias; i > 0; i--) {
+            obj.componentes[0]++;
+            if (obj.componentes[0] == diasMes(obj.componentes[1],obj.componentes[2])) {
+                obj.componentes[1]++;
+                obj.componentes[0] = 0;
+            }
+            if (obj.componentes[1] == 12) {
+                obj.componentes[1] = 0;
+                obj.componentes[2]++;
+            }
+        }
+        return obj;
+    }
+
     public Data sub(int dias){
         Data obj = new Data(this.componentes[0], this.componentes[1], this.componentes[2]);
         for (int i = dias; i > 0; i--) {
@@ -141,7 +159,7 @@ public class Data {
         }
         return obj;
     }
-    
+
     private boolean anoValido (int ano){
         if (ano > 0 && ano < 5000){
             return true;
@@ -180,13 +198,8 @@ public class Data {
                 }
             }
         }
-      return 0 ;
+        return 0 ;
     }
-
-    long dataSubtracao(int dias){
-
-        return 1000;
-   }
 
     static boolean mudaFormato(int f){
         if (formato < 0 || formato > 4) {
