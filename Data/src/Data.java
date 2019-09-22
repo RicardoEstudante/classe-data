@@ -33,7 +33,7 @@ public class Data {
             this.componentes[this.termos[2]] = ano;
         }
     }
-    
+
     public Data(String sd) {
         this.stringData(sd);
     }
@@ -104,7 +104,7 @@ public class Data {
     private long dataDias(){
         int mes = this.componentes[1];
         int dias = this.componentes[0];
-        
+
         for (int i = 1900; i < this.componentes[2]; i++) {
             if (bissexto(i)) {
                 dias += 366;
@@ -119,13 +119,25 @@ public class Data {
                 }
             }
         }
-        return dias;
-    } 
-    
-    private void diasData(long d){
-        
+        return dias - 1;
     }
-    
+
+    public Data soma(int dias){
+        Data obj = new Data(this.componentes[0], this.componentes[1], this.componentes[2]);
+        for (int i = dias; i > 0; i--) {
+            obj.componentes[0]++;
+            if (obj.componentes[0] == diasMes(obj.componentes[1],obj.componentes[2])) {
+                obj.componentes[1]++;
+                obj.componentes[0] = 0;
+            }
+            if (obj.componentes[1] == 12) {
+                obj.componentes[1] = 0;
+                obj.componentes[2]++;
+            }
+        }
+        return obj;
+    }
+
     public Data sub(int dias){
         Data obj = new Data(this.componentes[0], this.componentes[1], this.componentes[2]);
         for (int i = dias; i > 0; i--) {
@@ -141,7 +153,6 @@ public class Data {
         }
         return obj;
     }
-    
     public long sub(Data d){
         int anomaior, anomenor;
         int dias = 0; 
