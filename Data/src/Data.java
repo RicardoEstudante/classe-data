@@ -101,6 +101,47 @@ public class Data {
         return 31;
     }
 
+    private boolean anoValido (int ano){
+        if (ano > 0 && ano < 5000){
+            return true;
+        }
+        return false;
+    }
+
+    public long dataSubtracao(int ano1, int ano2){
+        if (anoValido(ano1) && anoValido(ano2)) {
+            if ((bissexto(ano1) && bissexto(ano2)) || (!bissexto(ano1) && (!bissexto(ano2)))) {
+                if (ano2 > ano1) {
+                    int anos = ano2 - ano1;
+                    int bissextos = (anos / 4);
+                    int dias = (anos * 365) + bissextos;
+                    return dias;
+                }
+                if (ano1 > ano2) {
+                    int anos = ano1 - ano2;
+                    int bissextos = (anos / 4);
+                    int dias = (anos * 365) + bissextos;
+                    return dias;
+                }
+            }
+            if (bissexto(ano1) || bissexto(ano2)) {
+                if (ano2 > ano1) {
+                    int anos = ano2 - ano1;
+                    int bissextos = (anos / 4) + 1;
+                    int dias = (anos * 365) + bissextos;
+                    return dias;
+                }
+                if (ano1 > ano2) {
+                    int anos = ano1 - ano2;
+                    int bissextos = (anos / 4) + 1;
+                    int dias = (anos * 365) + bissextos;
+                    return dias;
+                }
+            }
+        }
+      return 0 ;
+    }
+
     long dataSubtracao(int dias){
 
         return 1000;
