@@ -126,6 +126,22 @@ public class Data {
         
     }
     
+    public Data sub(int dias){
+        Data obj = new Data(this.componentes[0], this.componentes[1], this.componentes[2]);
+        for (int i = dias; i > 0; i--) {
+            obj.componentes[0]--;
+            if (obj.componentes[0] == 0) {
+                obj.componentes[1]--;
+                obj.componentes[0] = diasMes(obj.componentes[1],obj.componentes[2]);
+            }
+            if (obj.componentes[1] == 0) {
+                obj.componentes[1] = 12;
+                obj.componentes[2]--;
+            }
+        }
+        return obj;
+    }
+    
     private boolean anoValido (int ano){
         if (ano > 0 && ano < 5000){
             return true;
